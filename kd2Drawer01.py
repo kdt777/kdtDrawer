@@ -18,7 +18,7 @@ def mainstream():
   stime = time.process_time()   # processor time
   print ("==="*18)
 
-  with open('kDrawTriPyrRAB3b.txt', newline='') as csvfile:     # get drawing specs
+  with open('kd2Dxmpl.txt', newline='') as csvfile:     # get drawing specs
     cpxDomReader = csv.reader(csvfile, delimiter=',', quotechar='|')
     for kdRow in cpxDomReader:
       if len(kdRow) < 2:
@@ -27,10 +27,6 @@ def mainstream():
       #print("  L =", len(kdList))     #, kdList)
 
   print("\nVars:", varDict.items())
-
-  '''ax.text(0.5, 0.5, 'kd2Drawer',transform=ax.transAxes,
-        fontsize=10, color='gray', alpha=0.15,
-        ha='center', va='center', rotation=30)'''
 
 def parse_csv_row(csvRow):
     
