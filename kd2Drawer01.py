@@ -10,7 +10,9 @@ plt.close('all')
 fig, ax = plt.subplots(1)
 ax.set_aspect('equal')
 
-varDict = {}                    #variable names and values
+specFile = "2Dxmpl1.txt"        # diagram specifications
+
+varDict = {}                    # variable names and values
 varDict["pi"] = 3.141592
 
 def mainstream():
@@ -18,7 +20,7 @@ def mainstream():
   stime = time.process_time()   # processor time
   print ("==="*18)
 
-  with open('kd2Dxmpl.txt', newline='') as csvfile:     # get drawing specs
+  with open(specFile, newline='') as csvfile:     # get drawing specs
     cpxDomReader = csv.reader(csvfile, delimiter=',', quotechar='|')
     for kdRow in cpxDomReader:
       if len(kdRow) < 2:
@@ -119,8 +121,5 @@ def is_numeric(val):
         return False
 
 mainstream()
-
-#ax.plot([2,3], [4,5], 'b-')
-#plt.xticks(color='None')
 
 plt.show()

@@ -10,9 +10,10 @@ import matplotlib.patches as patches
 plt.close('all')
 fig = plt.figure()    #plt.subplots(1)
 ax = plt.axes(projection='3d')
-#ax.set_aspect('equal')
+ 
+specFile = "3Dxmpl1.txt"        # diagram specifications
 
-varDict = {}                    #variable names and values
+varDict = {}                    # variable names and values
 varDict["pi"] = 3.141592
 
 def mainstream():
@@ -20,7 +21,7 @@ def mainstream():
   stime = time.process_time()   # processor time
   print ("==="*18)
 
-  with open('kD3sphereInPyr.txt', newline='') as csvfile:     # get drawing specs
+  with open(specFile, newline='') as csvfile:     # get drawing specs
     cpxDomReader = csv.reader(csvfile, delimiter=',', quotechar='|')
     for kdRow in cpxDomReader:
       kdList = parse_csv_row(kdRow)
@@ -69,7 +70,7 @@ def parse_csv_row(csvRow):
       lnWidth = float(kdLst[5]);
       lnColr = kdLst[6]
 
-      nPts = 20            #generate coord grid
+      nPts = 20                     #generate coord grid
       phi, theta = np.mgrid[0.0:np.pi:complex(0, nPts), 
                             0.0:2.0*np.pi:complex(0, nPts)]
       Xmsh = radS * np.sin(phi) * np.cos(theta) + xCntr
@@ -83,8 +84,6 @@ def parse_csv_row(csvRow):
     if kdLst[0] == "LN":           #line (normal)
       x1 = extract_value(kdLst[1]); y1 = extract_value(kdLst[2]); z1 = extract_value(kdLst[3]);
       x2 = extract_value(kdLst[4]); y2 = extract_value(kdLst[5]); z2 = extract_value(kdLst[6]);
-      #x1 = float(kdLst[1]); y1 = float(kdLst[2])
-      #x2 = float(kdLst[3]); y2 = float(kdLst[4])
       XX = [x1, x2]; YY = [y1, y2]; ZZ = [z1, z2]
       lnWidth = float(kdLst[7]) 
       lnAttr = kdLst[8]
@@ -96,7 +95,7 @@ def parse_csv_row(csvRow):
       txtStrgRaw = kdLst[4]
       tsLth = len(txtStrgRaw) - 1
       if tsLth > 0:
-        txtStrg = txtStrgRaw[1:tsLth]
+        txtStrg = txtStrgRaw[1:tsLth]     #remove the brackets around the text
       else:
         txtStrg = txtStrgRaw
       txtSize = float(kdLst[5])
@@ -123,8 +122,5 @@ def is_numeric(val):
         return False
 
 mainstream()
-
-#ax.plot([2,3], [4,5], 'b-')
-#plt.xticks(color='None')
 
 plt.show()
